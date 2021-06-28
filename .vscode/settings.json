@@ -1,9 +1,9 @@
 {
-  "workbench.colorTheme": "GitHub Dark",
+  "workbench.colorTheme": "SynthWave '84",
   "workbench.colorCustomizations": {
     "statusBar.background": "#175847",
-    "titleBar.activeBackground": "#119471",
+    "titleBar.activeBackground": "#0f5a46",
     "titleBar.inactiveBackground": "#206956",
   },
-  "window.title": "Portfolio",
+  "window.title": "GameBoard Front-End",
 }
