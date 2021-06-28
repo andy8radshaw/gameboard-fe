@@ -1,0 +1,9 @@
+{
+  "workbench.colorTheme": "GitHub Dark",
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#175847",
+    "titleBar.activeBackground": "#119471",
+    "titleBar.inactiveBackground": "#206956",
+  },
+  "window.title": "Portfolio",
+}
