@@ -36,10 +36,21 @@ function App() {
     console.log('updating current categories')
   }
 
-  const selectCategory = (e, id) => {
+  const removeFromSelected = id => {
+    console.log('i want to remove a selected category')
+    setSelectedCategories(selectedCategories.filter(categoryId => {
+      if (categoryId === id) {
+        return 
+      } else return categoryId
+    }))
+  }
+
+  const handleCategorySelection = (e, id) => {
     e.preventDefault()
-    if (selectedCategories.includes(id)) return // remove from selectedCategories here
-    if (selectedCategories.length < 4) {
+    if (selectedCategories.length === 4 && !selectedCategories.includes(id)) return // add message to user here saying maximum selected
+    if (selectedCategories.includes(id)) {
+      removeFromSelected(id)
+    } else {
       setSelectedCategories([...selectedCategories, id])
     }
   }
@@ -57,7 +68,7 @@ function App() {
         return (
           <CategoryCard 
             key={category.id}
-            selectCategory={selectCategory}
+            handleCategorySelection={handleCategorySelection}
             selectedCategories={selectedCategories}
             {...category}
           />

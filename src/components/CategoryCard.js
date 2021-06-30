@@ -1,11 +1,10 @@
 import React from 'react'
 
-export default function CategoryCard({ name, id, selectCategory, selectedCategories }) {
+export default function CategoryCard({ name, id, handleCategorySelection, selectedCategories }) {
   const selected = selectedCategories.includes(id)
   return (
     <div
-      value={id}
-      onClick={(event) => selectCategory(event, id)}
+      onClick={(event) => handleCategorySelection(event, id)}
       className={selected ? 'selected' : ''}
     >
       {name}
