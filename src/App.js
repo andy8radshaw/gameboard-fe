@@ -5,9 +5,10 @@ import CategoryCard from './components/CategoryCard'
 import { getAllCategories } from './api/gameBoardAPI'
 
 function App() {
+  const [started, setStarted] = useState(false)
   const [gameCategories, setGameCategories] = useState(null)
-  // const [selectedCategories, setSelectedCategories] = useState([])
-  const [randomEight, setRandomEight] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState([])
+  const [currentCategories, setCurrentCategories] = useState([])
   const [usedCategories, setUsedCategories] = useState([])
 
   const getData = async () => {
@@ -23,22 +24,48 @@ function App() {
     getData()
   }, [])
 
-  const createRandomEight = () => {
+  const createCurrentCategories = () => {
     const randomized = gameCategories.sort( () => Math.random() - 0.5)
     const firstEight = randomized.slice(0, 8)
-    setRandomEight(firstEight)
+    setCurrentCategories(firstEight)
     setUsedCategories(firstEight)
+    setStarted(true)
+  }
+
+  const updateCurrentCategories = () => {
+    console.log('updating current categories')
+  }
+
+  const selectCategory = (e, id) => {
+    e.preventDefault()
+    if (selectedCategories.includes(id)) return // remove from selectedCategories here
+    if (selectedCategories.length < 4) {
+      setSelectedCategories([...selectedCategories, id])
+    }
   }
   
-  console.log('original categories:', gameCategories)
-  console.log('randomEight is:', randomEight)
+  console.log('currentCategories is:', currentCategories)
   console.log('usedCategories is:', usedCategories)
+  console.log('selectedCategories is:', selectedCategories)
 
   return (
     <div>
       <h1>GameBoard</h1>
-      <button onClick={createRandomEight}>Start</button>
-      <CategoryCard />
+      <button className={started ? 'hidden' : ''} onClick={createCurrentCategories}>Start</button>
+      <button onClick={updateCurrentCategories}>more categories</button>
+      {currentCategories.map(category => {
+        return (
+          <CategoryCard 
+            key={category.id}
+            selectCategory={selectCategory}
+            selectedCategories={selectedCategories}
+            {...category}
+          />
+        )
+      }
+
+        
+      )}
     </div>
   )
 }
