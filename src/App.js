@@ -10,6 +10,7 @@ function App() {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [currentCategories, setCurrentCategories] = useState([])
   const [usedCategories, setUsedCategories] = useState([])
+  const [showMaximumMessage, setShowMaximumMessage] = useState(false)
 
   const getData = async () => {
     try {
@@ -33,11 +34,10 @@ function App() {
   }
 
   const updateCurrentCategories = () => {
-    console.log('updating current categories')
+    console.log('update categories')
   }
 
   const removeFromSelected = id => {
-    console.log('i want to remove a selected category')
     setSelectedCategories(selectedCategories.filter(categoryId => {
       if (categoryId === id) {
         return 
@@ -47,13 +47,17 @@ function App() {
 
   const handleCategorySelection = (e, id) => {
     e.preventDefault()
-    if (selectedCategories.length === 4 && !selectedCategories.includes(id)) return // add message to user here saying maximum selected
+    if (selectedCategories.length === 4 && !selectedCategories.includes(id)) {
+      setShowMaximumMessage(true)
+      return 
+    }
     if (selectedCategories.includes(id)) {
       removeFromSelected(id)
+      setShowMaximumMessage(false)
     } else {
       setSelectedCategories([...selectedCategories, id])
     }
-  }
+  }  
   
   console.log('currentCategories is:', currentCategories)
   console.log('usedCategories is:', usedCategories)
@@ -73,10 +77,10 @@ function App() {
             {...category}
           />
         )
-      }
-
-        
+      }        
       )}
+      <p className={showMaximumMessage ? '' : 'hidden' }>Maximum categories selected. Either remove one or press the button below</p>
+      <button className={selectedCategories.length > 0 ? '' : 'hidden'}>Find Games!</button>
     </div>
   )
 }
